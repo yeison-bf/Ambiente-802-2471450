@@ -1,5 +1,5 @@
 const { put } = require("../routes/users.routes");
-
+const User = require('../models/users.models');
 
 const getUser = (req, res) => {
     res.send({
@@ -8,15 +8,16 @@ const getUser = (req, res) => {
     }
 )}
 
-const postUser = (req, res) => {
+const postUser = async (req, res) => {
     
-    const { nombre, apellidos, carrera } = req.body;
+    const body = req.body;
+    const user = new User(body);
+
+    await user.save();
 
     res.send({
         "ok" : 200,
-        nombre, 
-        apellidos, 
-        carrera
+        user
     }
 
 )}

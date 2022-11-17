@@ -1,6 +1,6 @@
 const express = require('express')
 const cors = require('cors')
-
+const { DBConection } = require('../public/db/config')
 
 class Server{
 
@@ -9,12 +9,19 @@ class Server{
         this.app = express();
         this.port = process.env.PORT;
 
+        //Conexión a la base de datos
+        this.DbConexionMongo();
 
         //Middleware
         this.middlewares();
 
         //Rutas
         this.route();
+    }
+
+
+    DbConexionMongo(){
+        DBConection();
     }
 
     //Middlewares
