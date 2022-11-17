@@ -1,3 +1,4 @@
+const { put } = require("../routes/users.routes");
 
 
 const getUser = (req, res) => {
@@ -8,16 +9,27 @@ const getUser = (req, res) => {
 )}
 
 const postUser = (req, res) => {
+    
+    const { nombre, apellidos, carrera } = req.body;
+
     res.send({
         "ok" : 200,
-        "msg" : "Petición por Post"
+        nombre, 
+        apellidos, 
+        carrera
     }
+
 )}
 
 const putUser = (req, res) => {
+
+    const paramts = req.params;
+    const body = req.body;
+
     res.send({
         "ok" : 200,
-        "msg" : "Petición por Put"
+        "id" : paramts,
+        body
     }
 )}
 
@@ -35,3 +47,7 @@ module.exports = {
     putUser,
     deleteUser
 }
+
+
+
+

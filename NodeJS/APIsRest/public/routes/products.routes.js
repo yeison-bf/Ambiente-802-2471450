@@ -8,9 +8,9 @@ route.get('/', getUser);
 
 route.post('/', postUser)
 
-route.put('/:id', putUser)
+route.put('/', putUser)
 
-route.delete('/:id', deleteUser)
+route.delete('/', deleteUser)
 
 
 

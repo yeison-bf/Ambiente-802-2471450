@@ -22,6 +22,9 @@ class Server{
         //Definición del cors
         this.app.use(cors())
 
+        //Definir tipos de información recibida (JSON)
+        this.app.use( express.json() )
+
         //Directorio público
         this.app.use( express.static('public') )
     }
@@ -30,12 +33,13 @@ class Server{
     route(){
        
         this.app.use( '/api/user/' , require('../public/routes/users.routes.js'))
+        this.app.use( '/api/products/' , require('../public/routes/products.routes.js'))
 
     }
 
     listen(){
         this.app.listen(this.port, ()=>{
-            console.log("Servidor (No te creo) corriendo en: http://localhost:"+this.port)
+            console.log("Servidor corriendo en: http://localhost:"+this.port)
         })
     }
 }
