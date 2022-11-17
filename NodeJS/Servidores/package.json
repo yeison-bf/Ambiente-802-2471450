@@ -1,0 +1,11 @@
+{
+  "name": "servidores",
+  "version": "1.0.0",
+  "description": "create servidor",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Yeison Barrios",
+  "license": "ISC"
+}
