@@ -1,4 +1,6 @@
-const { put } = require("../routes/users.routes");
+
+const bcryptjs = require('bcryptjs');
+
 const User = require('../models/users.models');
 
 const getUser = async (req, res) => {
@@ -13,8 +15,12 @@ const getUser = async (req, res) => {
 
 const postUser = async (req, res) => {
     
-    const body = req.body;
-    const user = new User(body);
+
+    const { identificacion, nombre, apellidos, direccion, telefono, usuario, password } = req.body;
+    const user = new User({ identificacion, nombre, apellidos, direccion, telefono, usuario, password });
+
+    const salt = bcryptjs.genSaltSync();
+    user.password = bcryptjs.hashSync( password, salt );
 
     await user.save();
 
