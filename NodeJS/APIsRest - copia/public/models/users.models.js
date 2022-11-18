@@ -3,12 +3,6 @@ const { Schema, model } = require('mongoose');
 
 const UserModel = new Schema({
 
-    identificacion:{
-        type:Number,
-        required:["El numero de identificación es obligatorio!"],
-        unique: true
-    },
-
     nombre:{
         type:String,
         required:["El nombre es obligatorio!"]
@@ -27,17 +21,6 @@ const UserModel = new Schema({
     telefono:{
         type:Number,
         required:["El telefon es obligatorio!"]
-    },
-
-    usuario:{
-        type:String,
-        required:["El usuario es obligatorio!"],
-        unique: true
-    },
-
-    password:{
-        type:String,
-        required:["La password es obligatoria!"]
     },
 
     estado:{

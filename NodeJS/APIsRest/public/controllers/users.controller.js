@@ -1,10 +1,13 @@
 const { put } = require("../routes/users.routes");
 const User = require('../models/users.models');
 
-const getUser = (req, res) => {
+const getUser = async (req, res) => {
+
+    const allUsers = await User.find();
+
     res.send({
         "ok" : 200,
-        "msg" : "Petición por Get"
+        allUsers
     }
 )}
 
@@ -22,22 +25,32 @@ const postUser = async (req, res) => {
 
 )}
 
-const putUser = (req, res) => {
+const putUser = async (req, res) => {
 
-    const paramts = req.params;
-    const body = req.body;
+    const paramts = req.params.id;
+    const { identificacion, nombre, apellidos, direccion, telefono, ususario, password } = req.body;
+
+    const userUpdate = await User.findByIdAndUpdate(paramts, {identificacion, nombre, apellidos, direccion, telefono, ususario, password});
 
     res.send({
         "ok" : 200,
-        "id" : paramts,
-        body
+        "msg": "Usuario actualizado exitosamente" 
     }
 )}
 
-const deleteUser = (req, res) => {
+const deleteUser = async (req, res) => {
+
+    const id_user = req.params.id; 
+    // const deleteUser = await User.findByIdAndDelete( id_user);
+
+    const estado  = false;
+
+    const userUpdate = await User.findByIdAndUpdate(id_user, {estado});
+
+
     res.send({
         "ok" : 200,
-        "msg" : "Petición por Delete"
+        "msg" : "Usuario eliminado"
     }
 )}
 
