@@ -29,7 +29,7 @@ const UserModel = new Schema({
         required:["El telefon es obligatorio!"]
     },
 
-    usuario:{
+    email:{
         type:String,
         required:["El usuario es obligatorio!"],
         unique: true

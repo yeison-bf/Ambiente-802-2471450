@@ -15,9 +15,10 @@ const getUser = async (req, res) => {
 
 const postUser = async (req, res) => {
     
+    const { identificacion, nombre, apellidos, direccion, telefono, email, password } = req.body;
+    const user = new User({ identificacion, nombre, apellidos, direccion, telefono, email, password });
 
-    const { identificacion, nombre, apellidos, direccion, telefono, usuario, password } = req.body;
-    const user = new User({ identificacion, nombre, apellidos, direccion, telefono, usuario, password });
+    
 
     const salt = bcryptjs.genSaltSync();
     user.password = bcryptjs.hashSync( password, salt );
@@ -27,17 +28,16 @@ const postUser = async (req, res) => {
     res.send({
         "ok" : 200,
         user
-    }
-
-)}
+    })
+}
 
 const putUser = async (req, res) => {
 
     const paramts = req.params.id;
-    const { identificacion, nombre, apellidos, direccion, telefono, ususario, password } = req.body;
+    const { identificacion, nombre, apellidos, direccion, telefono, email, password } = req.body;
 
-    const userUpdate = await User.findByIdAndUpdate(paramts, {identificacion, nombre, apellidos, direccion, telefono, ususario, password});
-
+    const userUpdate = await User.findByIdAndUpdate(paramts, {identificacion, nombre, apellidos, direccion, telefono, email, password});
+   
     res.send({
         "ok" : 200,
         "msg": "Usuario actualizado exitosamente" 
@@ -61,11 +61,25 @@ const deleteUser = async (req, res) => {
 )}
 
 
+const GetUserById = async (req, res) =>{
+
+    const { id } = req.params;
+    
+    const data = await User.find({_id : id});
+
+    res.json({
+        "ok": 200,
+        data
+    })
+}
+
+
 module.exports = {
     getUser,
     postUser,
     putUser,
-    deleteUser
+    deleteUser,
+    GetUserById
 }
 
 
