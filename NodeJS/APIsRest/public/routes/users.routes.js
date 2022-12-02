@@ -1,28 +1,37 @@
 
 const { Router } = require('express');
 const { check } = require('express-validator');
+const { validatorPath, EmailExisting, IdentificationExisting } = require('../middlewares/validator')
 
-const { getUser, postUser, putUser, deleteUser, GetUserById} = require('../controllers/users.controller');
-const { validator_paht } = require('../middlewares/validator-path');
+const { getUser, postUser, putUser, deleteUser, GetUserById} = require('../controllers/usersController');
 
 
 const route = Router();
 
 route.get('/', getUser);
 
-route.post('/',[
-    check('identificacion', 'La identificación no es aceptada').isNumeric(),
-    check('identificacion', 'La identificación no tiene la longitud permitida').isLength({min:8, max:10}),
+route.post('/', [ 
+    check('identificacion', 'El documento, no tiene un tipado aceptado').isInt(),
+    check('identificacion', 'El documento es requerido').not().isEmpty(),
+    check('identificacion', 'Al documento, se espera una longitud minima de 8 caracteres y maxima de 10 caracteres').isLength({min:8, max:10}),
+    check('identificacion').custom ( IdentificationExisting ),
     check('nombre', 'El nombre es requerido').not().isEmpty(),
-    check('email', 'El email, no tiene el formato permitido').isEmail(),
-    validator_paht
-], postUser)
+    check('apellidos', 'El apellido es requerido').not().isEmpty(),
+    check('direccion', 'La irección es requerida').not().isEmpty(),
+    check('email', 'El email no es aceptable').isEmail(),
+    check('email').custom( EmailExisting ),
+    check('password', 'La contraseña debe tener minimo 8 caracteres').isLength({min:8}),
+    check('role', 'El rol asignado no es válido').isIn(['EMPLEADO', 'CLIENTE']),
+    validatorPath
+], postUser);
 
-route.put('/:id', putUser)
+route.put('/:id', putUser);
 
-route.delete('/:id', deleteUser)
+route.delete('/:id', deleteUser);
 
-route.get('/userById/:id', GetUserById)
+route.get('/userById/:id', GetUserById);
 
 
 module.exports = route;
+
+

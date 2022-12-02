@@ -25,8 +25,7 @@ const UserModel = new Schema({
     },
 
     telefono:{
-        type:Number,
-        required:["El telefon es obligatorio!"]
+        type:String,
     },
 
     email:{
@@ -38,6 +37,11 @@ const UserModel = new Schema({
     password:{
         type:String,
         required:["La password es obligatoria!"]
+    },
+
+    role:{
+        type:String,
+        required:["El rol es obligatorio!"]
     },
 
     estado:{
